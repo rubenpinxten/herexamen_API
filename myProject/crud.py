@@ -5,9 +5,9 @@ from .models import Quote, Title, Year
 from .schemas import QuoteBase, QuoteCreate, TitleBase, TitleCreate, YearBase, YearCreate
 
 
-#import auth
-#import models
-#import schemas
+import auth
+import models
+import schemas
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
