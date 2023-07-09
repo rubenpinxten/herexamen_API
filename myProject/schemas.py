@@ -38,7 +38,7 @@ class YearCreate(YearBase):
 
 class Year(YearBase):
     id: int
-    spoken: List[Quote] = []
+    spoken: list[Quote] = []
 
     class Config:
         orm_mode = True
