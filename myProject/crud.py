@@ -7,56 +7,71 @@ import schemas
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-def get_user(db: Session, user_id: int):
-    return db.query(models.User).filter(models.User.id == user_id).first()
-
-
-def get_user_by_email(db: Session, email: str):
-    return db.query(models.User).filter(models.User.email == email).first()
-
-
-def get_users(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.User).offset(skip).limit(limit).all()
-
-
-def create_user(db: Session, user: schemas.UserCreate):
-    hashed_password = user.password + "notreallyhashed"
-    db_user = models.User(email=user.email, hashed_password=hashed_password)
-    db.add(db_user)
+def create_quote(db: Session, quote: schemas.QuoteCreate):
+    db_quote = models.Quote(text=quote.text, name_id=quote.name_id, periode_id=quote.periode_id)
+    db.add(db_quote)
     db.commit()
-    db.refresh(db_user)
-    return db_user
+    db.refresh(db_quote)
+    return db_quote
 
+def get_quote(db: Session, quote_id: int):
+    return db.query(Quote).filter(Quote.id == quote_id).first()
 
-def create_products_for_user(db: Session, prodcut: schemas.ProductCreate, users_id: int):
-    db_product = models.Product(**prodcut.dict(), owner_id=users_id)
-    db.add(db_product)
+def update_quote(db: Session, quote_id: int, quote: QuoteBase):
+    db_quote = db.query(Quote).filter(Quote.id == quote_id).first()
+    db_quote.text = quote.text
     db.commit()
-    db.refresh(db_product)
-    return db_product
+    db.refresh(db_quote)
+    return db_quote
 
-def create_manufactors_for_products(db: Session, manufactor: schemas.ManufactorCreate, products_id: int):
-    db_manufactor = models.Manufactor(**manufactor.dict(), product_id=products_id)
-    db.add(db_manufactor)
+def delete_quote(db: Session, quote_id: int):
+    db_quote = db.query(Quote).filter(Quote.id == quote_id).first()
+    db.delete(db_quote)
     db.commit()
-    db.refresh(db_manufactor)
-    return db_manufactor
+    return {"message": "Quote deleted"}
 
-def get_products(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Product).offset(skip).limit(limit).all()
-
-def get_manufactors(db: Session, skip: int = 0, limit: int = 100):
-    return db.query(models.Manufactor).offset(skip).limit(limit).all()
-    
-def delete_all_manufactors(db: Session, manufactors: schemas.Manufactor):
-    manufactors = db.query(models.Manufactor)
-    db.delete(manufactors)
+def create_title(db: Session, title: TitleCreate):
+    db_title = Title(text=title.text)
+    db.add(db_title)
     db.commit()
-    return "Alle manufactors have been deleted!"
+    db.refresh(db_title)
+    return db_title
 
-def update_manufactors_last(db: Session, update_manufactor: schemas.ManufactorCreate):
-    db_update_manufactor = db.manufactor(models.Manufactor).all()
-    manufactor = db_update_manufactor[-1]
-    manufactor.content = update_manufactor.content
+def get_title(db: Session, title_id: int):
+    return db.query(Title).filter(Title.id == title_id).first()
+
+def update_title(db: Session, title_id: int, title: TitleBase):
+    db_title = db.query(Title).filter(Title.id == title_id).first()
+    db_title.text = title.text
     db.commit()
-    return manufactor
+    db.refresh(db_title)
+    return db_title
+
+def delete_title(db: Session, title_id: int):
+    db_title = db.query(Title).filter(Title.id == title_id).first()
+    db.delete(db_title)
+    db.commit()
+    return {"message": "Title deleted"}
+
+def create_year(db: Session, year: YearCreate):
+    db_year = Year(text=year.text)
+    db.add(db_year)
+    db.commit()
+    db.refresh(db_year)
+    return db_year
+
+def get_year(db: Session, year_id: int):
+    return db.query(Year).filter(Year.id == year_id).first()
+
+def update_year(db: Session, year_id: int, year: YearBase):
+    db_year = db.query(Year).filter(Year.id == year_id).first()
+    db_year.text = year.text
+    db.commit()
+    db.refresh(db_year)
+    return db_year
+
+def delete_year(db: Session, year_id: int):
+    db_year = db.query(Year).filter(Year.id == year_id).first()
+    db.delete(db_year)
+    db.commit()
+    return {"message": "Year deleted"}

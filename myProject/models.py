@@ -3,35 +3,26 @@ from sqlalchemy.orm import relationship
 
 from database import Base
 
-
-class User(Base):
-    __tablename__ = "users"
-
+class Quote(Base):
+    __tablename__ = "quotes"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True, index=True)
-    email = Column(String, unique=True, index=True)
-    hashed_password = Column(String)
+    text = Column(String)
+    name_id = Column(Integer, ForeignKey("titles.id"))
+    periode_id = Column(Integer, ForeignKey("years.id"))
 
-    products = relationship("Product", back_populates="owner")
+    name = relationship("Title", back_populates="quote")
+    periode = relationship("Year", back_populates="spoken")
 
-
-class Product(Base):
-    __tablename__ = "products"
-
+class Title(Base):
+    __tablename__ = "titles"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
+    text = Column(String)
 
-    owner = relationship("User", back_populates="products")
+    quote = relationship("Quote", back_populates="name")
 
-    manufactors = relationship("Manufactor", back_populates="product")
-
-
-class Manufactor(Base):
-    __tablename__ = "manufactors"
-
+class Year(Base):
+    __tablename__ = "years"
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    product_id = Column(Integer, ForeignKey("products.id"))
+    text = Column(String)
 
-    product = relationship("Product", back_populates="manufactors")
+    spoken = relationship("Quote", back_populates="periode")

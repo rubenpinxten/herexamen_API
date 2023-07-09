@@ -1,42 +1,44 @@
 from pydantic import BaseModel
 
-class ManufactorBase(BaseModel):
-    name: str
+from pydantic import BaseModel
 
-class ManufactorCreate(ManufactorBase):
-    pass
+class QuoteBase(BaseModel):
+    text: str
 
-class Manufactor(ManufactorBase):
+class QuoteCreate(QuoteBase):
+    name_id: int
+    periode_id: int
+
+class Quote(QuoteBase):
     id: int
-    product_id: int
+    name_id: int
+    periode_id: int
 
     class Config:
         orm_mode = True
 
-class ProductBase(BaseModel):
-    name: str
+class TitleBase(BaseModel):
+    text: str
 
-
-class ProductCreate(ProductBase):
+class TitleCreate(TitleBase):
     pass
 
-class Product(ProductBase):
+class Title(TitleBase):
     id: int
-    user_id :int
-    manufactors: list[ManufactorBase] = []
+    quotes: List[Quote] = []
 
     class Config:
         orm_mode = True
 
-class UserBase(BaseModel):
-    email: str
+class YearBase(BaseModel):
+    text: str
 
-class UserCreate(UserBase):
-    password: str
+class YearCreate(YearBase):
+    pass
 
-class User(UserBase):
+class Year(YearBase):
     id: int
-    products: list[ProductBase] = []
+    spoken: List[Quote] = []
 
     class Config:
         orm_mode = True
