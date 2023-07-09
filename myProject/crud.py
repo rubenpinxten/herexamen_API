@@ -1,8 +1,8 @@
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
 
-from .models import Quote, Title, Year
-from .schemas import QuoteBase, QuoteCreate, TitleBase, TitleCreate, YearBase, YearCreate
+from models import Quote, Title, Year
+from schemas import QuoteBase, QuoteCreate, TitleBase, TitleCreate, YearBase, YearCreate
 
 
 import auth
