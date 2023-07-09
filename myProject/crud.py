@@ -11,8 +11,19 @@ import schemas
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-def create_quote(db: Session, quote: schemas.QuoteCreate):
-    db_quote = models.Quote(text=quote.text, name_id=quote.name_id, periode_id=quote.periode_id)
+
+def create_quote(db: Session, quote: QuoteCreate):
+
+    db_title = db.query(Title).filter(Title.text == quote.title.text).first()
+    if not db_title:
+        db_title = create_title(db=db, title=quote.title)
+
+
+    db_year = db.query(Year).filter(Year.text == quote.year.text).first()
+    if not db_year:
+        db_year = create_year(db=db, year=quote.year)
+
+    db_quote = Quote(text=quote.text, name=db_title, periode=db_year)
     db.add(db_quote)
     db.commit()
     db.refresh(db_quote)
@@ -79,3 +90,12 @@ def delete_year(db: Session, year_id: int):
     db.delete(db_year)
     db.commit()
     return {"message": "Year deleted"}
+
+def get_all_quotes(db: Session):
+    return db.query(Quote).all()
+
+def get_all_titles(db: Session):
+    return db.query(Title).all()
+
+def get_all_years(db: Session):
+    return db.query(Year).all()
