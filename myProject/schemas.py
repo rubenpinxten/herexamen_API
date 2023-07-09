@@ -25,7 +25,7 @@ class TitleCreate(TitleBase):
 
 class Title(TitleBase):
     id: int
-    quotes: List[Quote] = []
+    quotes: list[Quote] = []
 
     class Config:
         orm_mode = True
