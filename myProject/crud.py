@@ -11,11 +11,26 @@ import schemas
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-def create_quote(db: Session, quote: QuoteCreate, title: Title, year: Year):
-    db_quote = Quote(text=quote.text, name=title, periode=year)
+def create_quote(db: Session, quote: QuoteCreate, title_text: str, year_text: str):
+    db_title = db.query(Title).filter(Title.text == title_text).first()
+    if not db_title:
+        db_title = Title(text=title_text)
+        db.add(db_title)
+        db.commit()
+        db.refresh(db_title)
+
+    db_year = db.query(Year).filter(Year.text == year_text).first()
+    if not db_year:
+        db_year = Year(text=year_text)
+        db.add(db_year)
+        db.commit()
+        db.refresh(db_year)
+
+    db_quote = Quote(text=quote.text, name=db_title, periode=db_year)
     db.add(db_quote)
     db.commit()
     db.refresh(db_quote)
+
     return db_quote
 
 def get_quote(db: Session, quote_id: int):
