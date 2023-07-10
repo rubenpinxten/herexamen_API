@@ -31,8 +31,28 @@ def get_db():
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @app.post("/quotes/", response_model=schemas.Quote)
-def create_quote(quote: schemas.QuoteCreate, db: Session = Depends(get_db)):
-    return crud.create_quote(db=db, quote=quote)
+def create_quote(quote_data: schemas.QuoteCreateData, db: Session = Depends(get_db)):
+    quote = quote_data.quote
+    title = quote_data.title
+    year = quote_data.year
+
+    # Check if title exists in the database
+    db_title = db.query(models.Title).filter(models.Title.text == title.text).first()
+    if not db_title:
+        db_title = crud.create_title(db=db, title=title)
+    else:
+        title = db_title  # Use existing title
+
+    # Check if year exists in the database
+    db_year = db.query(models.Year).filter(models.Year.text == year.text).first()
+    if not db_year:
+        db_year = crud.create_year(db=db, year=year)
+    else:
+        year = db_year  # Use existing year
+
+    # Create the quote
+    db_quote = crud.create_quote(db=db, quote=quote, title=title, year=year)
+    return db_quote
 
 @app.get("/quotes/{quote_id}", response_model=schemas.Quote)
 def read_quote(quote_id: int, db: Session = Depends(get_db)):

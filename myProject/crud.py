@@ -11,19 +11,8 @@ import schemas
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-
-def create_quote(db: Session, quote: QuoteCreate):
-
-    db_title = db.query(Title).filter(Title.text == quote.title.text).first()
-    if not db_title:
-        db_title = create_title(db=db, title=quote.title)
-
-
-    db_year = db.query(Year).filter(Year.text == quote.year.text).first()
-    if not db_year:
-        db_year = create_year(db=db, year=quote.year)
-
-    db_quote = Quote(text=quote.text, name=db_title, periode=db_year)
+def create_quote(db: Session, quote: QuoteCreate, title: Title, year: Year):
+    db_quote = Quote(text=quote.text, name=title, periode=year)
     db.add(db_quote)
     db.commit()
     db.refresh(db_quote)
