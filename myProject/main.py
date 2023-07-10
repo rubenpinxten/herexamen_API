@@ -31,27 +31,30 @@ def get_db():
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 @app.post("/quotes/", response_model=schemas.Quote)
-def create_quote(quote_data: schemas.QuoteCreateData, db: Session = Depends(get_db)):
-    quote = quote_data.quote
-    title = quote_data.title
-    year = quote_data.year
+def create_quote(db: Session, quote: QuoteCreate, title_text: str, year_text: str):
 
-    # Check if title exists in the database
-    db_title = db.query(models.Title).filter(models.Title.text == title.text).first()
+    db_title = db.query(Title).filter(Title.text == title_text).first()
     if not db_title:
-        db_title = crud.create_title(db=db, title=title)
-    else:
-        title = db_title  # Use existing title
 
-    # Check if year exists in the database
-    db_year = db.query(models.Year).filter(models.Year.text == year.text).first()
+        db_title = Title(text=title_text)
+        db.add(db_title)
+        db.commit()
+        db.refresh(db_title)
+
+
+    db_year = db.query(Year).filter(Year.text == year_text).first()
     if not db_year:
-        db_year = crud.create_year(db=db, year=year)
-    else:
-        year = db_year  # Use existing year
 
-    # Create the quote
-    db_quote = crud.create_quote(db=db, quote=quote, title=title, year=year)
+        db_year = Year(text=year_text)
+        db.add(db_year)
+        db.commit()
+        db.refresh(db_year)
+
+    db_quote = Quote(text=quote.text, name=db_title, periode=db_year)
+    db.add(db_quote)
+    db.commit()
+    db.refresh(db_quote)
+
     return db_quote
 
 @app.get("/quotes/{quote_id}", response_model=schemas.Quote)
