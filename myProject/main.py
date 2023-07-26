@@ -115,13 +115,13 @@ def delete_year(year_id: int, db: Session = Depends(get_db)):
     return crud.delete_year(db=db, year_id=year_id)
 
 @app.get("/quotes/get/", response_model=list[schemas.Quote])
-def get_all_quotes(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return crud.get_all_quotes(db=db, skip=skip, limit=limit)
+def get_all_quotes(db: Session = Depends(get_db)):
+    return crud.get_all_quotes(db=db)
 
 @app.get("/titles/get/", response_model=list[schemas.Title])
-def get_all_titles(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return crud.get_all_titles(db=db, skip=skip, limit=limit)
+def get_all_titles(db: Session = Depends(get_db)):
+    return crud.get_all_titles(db=db)
 
 @app.get("/years/get/", response_model=list[schemas.Year])
-def get_all_years(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
-    return crud.get_all_years(db=db, skip=skip, limit=limit)
+def get_all_years(db: Session = Depends(get_db)):
+    return crud.get_all_years(db=db)
