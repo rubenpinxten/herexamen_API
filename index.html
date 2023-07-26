@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Front-end with Alpine.js</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js"></script>
+</head>
+<body>
+    <div x-data="{
+        responsedata: null,
+        async getData() {
+            this.responsedata = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/')).json();
+        }
+    }">
+
+    <button x-on:click="getData">Send get request</button>
+    Data returned: <strong x-text="responsedata.context">Placeholder</strong>
+
+
+    </div>
+    <div x-data="{
+        responsedata: null,
+        async getData() {
+          this.responsedata = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/')).json();
+        }
+      }">
+        <button class="btn btn-primary" x-on:click="getData">Get random quote</button>
+        <p class="api-output" x-text="responsedata.content"></p>
+      </div>
+
+</body>
+</html>
