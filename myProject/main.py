@@ -114,14 +114,14 @@ def delete_year(year_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Year not found")
     return crud.delete_year(db=db, year_id=year_id)
 
-@app.get("/quotes/", response_model=list[schemas.Quote])
+@app.get("/quotes/get", response_model=list[schemas.Quote])
 def get_all_quotes(db: Session = Depends(get_db)):
     return crud.get_all_quotes(db=db)
 
-@app.get("/titles/", response_model=list[schemas.Title])
+@app.get("/titles/get", response_model=list[schemas.Title])
 def get_all_titles(db: Session = Depends(get_db)):
     return crud.get_all_titles(db=db)
 
-@app.get("/years/", response_model=list[schemas.Year])
+@app.get("/years/get", response_model=list[schemas.Year])
 def get_all_years(db: Session = Depends(get_db)):
     return crud.get_all_years(db=db)

@@ -24,8 +24,8 @@
           this.responsedata = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/')).json();
         }
       }">
-        <button class="btn btn-primary" x-on:click="getData">Get random quote</button>
-        <p class="api-output" x-text="responsedata.content"></p>
+        <button class="btn btn-primary" x-on:click="getData">Get quote</button>
+        <p class="api-output" x-text="responsedata"></p>
       </div>
 
 </body>
