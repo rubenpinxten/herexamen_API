@@ -2,18 +2,35 @@
 <html>
 <head>
     <title>API Front-end with Alpine.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" integrity="sha384-r0MftzQw8eMxxJjCWT5Rnx4ZkU1u/5Yz9lRTMl6XKFzq7b+MMoMqKpIV4TRIpgij" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js" defer></script>
 </head>
 <body>
     <div x-data="{
         responsedata: null,
         async getData() {
-            this.responsedata = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/')).json();
+            this.responsedata = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/get/')).json();
         }
     }">
 
     <button x-on:click="getData">Send get request</button>
     Data returned: <strong x-text="responsedata.context">Placeholder</strong>
+
+    <div x-data="{
+        responsedata: null,
+        async getData() {
+            try {
+                const response = await fetch('/api');
+                this.responsedata = await response.json();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+    }">
+        <button x-on:click="getData">Send get request</button>
+        Data returned: <strong x-text="responsedata ? responsedata.context : 'Placeholder'"></strong>
+    </div>
+    
 
 
     </div>
