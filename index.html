@@ -4,110 +4,142 @@
     <title>API Front-end with Alpine.js</title>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" integrity="sha384-r0MftzQw8eMxxJjCWT5Rnx4ZkU1u/5Yz9lRTMl6XKFzq7b+MMoMqKpIV4TRIpgij" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div x-data="{
-        responsedata: null,
-        async getData() {
-            this.responsedata = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/get/')).json();
-        }
-    }">
-
-    <button x-on:click="getData">Send get request</button>
-    Data returned: <strong x-text="responsedata.context">Placeholder</strong>
-
-    <div x-data="{
-        responsedata: null,
-        async getData() {
-            try {
-                const response = await fetch('/api');
-                this.responsedata = await response.json();
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-        }
-    }">
-        <button x-on:click="getData">Send get request</button>
-        Data returned: <strong x-text="responsedata ? responsedata.context : 'Placeholder'"></strong>
+    <div class="container">
+    <h1>The database with all the best movie quotes.</h1>
+    <div class="row">
+        <div class="col-md-6 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Get the first Quote.</h5>
+            <div class="card-text">
+                <div x-data="{
+                    responsedata: null,
+                    async getData() {
+                    try {
+                        const response = await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/1');
+                        if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                        }
+                        this.responsedata = await response.json();
+                    } catch (error) {
+                        console.error('Error fetching data:', error.message);
+                    }
+                    }
+                }">
+                    <button class="btn btn-primary" x-on:click="getData">Get quote</button>
+                    <p class="api-output" x-text="responsedata ? responsedata.text : ''"></p>
+                </div>
+            </div>
+        </div>
     </div>
-    
-
-
+</div>
+<div class="col-md-6 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Get all the quotes.</h5>
+            <div class="card-text">
+                <div x-data="{
+                    responsedata: null,
+                    async getData() {
+                        try {
+                            const response = await fetch('https://system-service-rubenpinxten.cloud.okteto.net/titles/get/');
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            this.responsedata = await response.json();
+                            console.log('responsedata:', this.responsedata);
+                        } catch (error) {
+                            console.error('Error fetching data:', error.message);
+                        }
+                    }
+                }" x-cloak>
+                    <button class="btn btn-primary" x-on:click="getData" x-show="responsedata === null">Get quotes</button>
+                    <ul class="api-output" x-if="Array.isArray(responsedata)" x-show="Array.isArray(responsedata)">
+                        <li x-for="(quote, index) in responsedata" :key="index" x-if="quote.text" x-text="quote.text"></li>
+                    </ul>
+                    <p x-if="!Array.isArray(responsedata)">No quotes available</p>
+                </div>
+                
+                
+                
+            </div>
+        </div>
     </div>
-    <div x-data="{
+</div></div>
+      
+<div class="col-md-12 col-sm-12">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Add a Quote.</h5>
+            <div class="card-text">
+      <div x-data="{ 
+        quoteText: '', 
+        titleText: '', 
+        yearText: '', 
         responsedata: null,
-        async getData() {
-          this.responsedata = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/get/')).json();
-        }
-      }">
-        <button class="btn btn-primary" x-on:click="getData">Get quote</button>
-        <p class="api-output" x-text="responsedata"></p>
-      </div>
-
-      <div x-data="{
-        responsedata: null,
-        async getData() {
-          try {
-            const response = await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/get/');
+      
+        postData() {
+          const data = {
+            quote: {
+              text: this.quoteText,
+              name_id: 0,
+              periode_id: 0,
+            },
+            title: {
+              text: this.titleText,
+            },
+            year: {
+              text: this.yearText,
+            },
+          };
+      
+          fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          })
+          .then(response => {
             if (!response.ok) {
               throw new Error('Network response was not ok');
             }
-            this.responsedata = await response.json();
-          } catch (error) {
-            console.error('Error fetching data:', error.message);
-          }
+            return response.json();
+          })
+          .then(data => {
+            console.log('Response data:', data);
+            this.responsedata = data;
+          })
+          .catch(error => {
+            console.error('Error:', error);
+          });
         }
       }">
-        <button class="btn btn-primary" x-on:click="getData">Get quote</button>
-        <p class="api-output" x-text="responsedata ? responsedata.text : 'No quote available'"></p>
+        <label for="quote">Quote:</label>
+        <input type="text" id="quote" name="quote" x-model="quoteText" required>
+      
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" x-model="titleText" required>
+      
+        <label for="year">Year:</label>
+        <input min="1500" max="2024" type="number" id="year" name="year" x-model="yearText" required>
+      
+        <button class="btn btn-primary" x-on:click="postData">Submit</button>
+      
+        <template x-if="responsedata">
+            <p>Your quote is added to the database.</p>
+           </template>
       </div>
       
-
-      <template x-if="responsedata"> <!-- Check if responsedata is not null -->
-        <strong x-text="responsedata.context"></strong>
-      </template>
-      <template x-if="!responsedata"> <!-- Show a loading message or other content when responsedata is null -->
-        <p>Loading data...</p>
-      </template>
+    </div> </div> </div></div>
       
-      <button class="btn btn-primary" x-on:click="getData">Click to Fetch Data</button>
-      
-      <script>
-        function fetchQuoteData() {
-          return fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/get/')
-            .then(response => response.json());
-        }
-      
-        Alpine.data('myApp', () => ({
-          responsedata: null,
-          async getData() {
-            try {
-              this.responsedata = await fetchQuoteData();
-            } catch (error) {
-              console.error('Error fetching data:', error);
-            }
-          },
-        }));
-      </script>
-      
-
-      <div x-data="{
-        responsedata: null,
-        async getData() {
-          this.responsedata = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/get/')).json();
-          let output = document.getElementById('output');
-          output.innerHTML = '';
-          for (let i = 0; i < this.responsedata.length; i++) {
-            let li = document.createElement('li');
-            li.innerHTML = this.responsedata[i].content;
-            output.appendChild(li);
-          }
-        }
-      }">
-        <button class="btn btn-primary" x-on:click="getData">Get all quotes</button>
-        <ul id="output" class="api-output"></ul>
-      </div>
-      
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>
