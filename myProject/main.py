@@ -1,10 +1,10 @@
-from fastapi import Depends, FastAPI, HTTPException
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.security import HTTPBasic, HTTPBasicCredentials, OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware  # Import the CORSMiddleware
 
 import os
-
+import secrets
 import auth
 import crud
 import models
@@ -19,6 +19,8 @@ if not os.path.exists('.\sqlitedb'):
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+security = HTTPBasic()
 
 # Dependency
 def get_db():
@@ -42,6 +44,31 @@ app.add_middleware(
 
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
+    current_username_bytes = credentials.username.encode("utf8")
+    correct_username_bytes = b"Ruben"
+    is_correct_username = secrets.compare_digest(
+        current_username_bytes, correct_username_bytes
+    )
+    current_password_bytes = credentials.password.encode("utf8")
+    correct_password_bytes = b"Ruben"
+    is_correct_password = secrets.compare_digest(
+        current_password_bytes, correct_password_bytes
+    )
+    if not (is_correct_username and is_correct_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return credentials.username
+
+
+@app.get("/users/me")
+def read_current_user(username: str = Depends(get_current_username)):
+    return {"username": username}
+
 
 @app.post("/quotes/", response_model=schemas.Quote)
 def create_quote(quote_data: schemas.QuoteCreateData, db: Session = Depends(get_db)):
