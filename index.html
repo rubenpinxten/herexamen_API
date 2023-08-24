@@ -97,7 +97,7 @@
                     let li = document.createElement('li');
                     li.innerHTML = this.responsedata[i].content;
                     output.appendChild(li);
-                  }
+                  }}
                 }" x-cloak>
                     <button class="btn btn-primary" x-on:click="getData" x-show="responsedata === null">Get quotes</button>
                     <ul id="output"></ul>
