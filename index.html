@@ -4,10 +4,55 @@
     <title>API Front-end with Alpine.js</title>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" integrity="sha384-r0MftzQw8eMxxJjCWT5Rnx4ZkU1u/5Yz9lRTMl6XKFzq7b+MMoMqKpIV4TRIpgij" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/alpinejs@3.5.0/dist/cdn.min.js" defer></script>
+    <script>
+      let token = null;
+
+      function setToken(newToken) {
+        token = newToken;
+      }
+
+      function getToken() {
+        return token;
+      }
+    </script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div id="loginform" x-data="{
+    responsedata: null,
+    username: null,
+    password: null,
+    async adminlogin() {
+      const searchParams = new URLSearchParams();
+      searchParams.append('username', this.username);
+      searchParams.append('password', this.password);
+    
+      this.responsedata = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/token', {
+        method: 'POST',
+        body: searchParams,
+        headers: {
+          'Content-type': 'application/x-www-form-urlencoded',
+        },
+      })).json();
+
+      setToken(this.responsedata.access_token);
+
+    },
+  }">
+    <div class="login">
+      <span>Username</span>
+    <input type="text" x-model="username">
+    </div>
+    <div class="login">
+      <span>Password</span>
+    <input type="text" x-model="password">
+    </div>
+    <button class="btn btn-primary login" x-on:click="adminlogin">Login</button>
+  </div>
+</div>
+
+  
     <div class="container">
     <h1>The database with all the best movie quotes.</h1>
     <div class="row">
@@ -45,23 +90,17 @@
                 <div x-data="{
                     responsedata: null,
                     async getData() {
-                        try {
-                            const response = await fetch('https://system-service-rubenpinxten.cloud.okteto.net/titles/get/');
-                            if (!response.ok) {
-                                throw new Error('Network response was not ok');
-                            }
-                            this.responsedata = await response.json();
-                            console.log('responsedata:', this.responsedata);
-                        } catch (error) {
-                            console.error('Error fetching data:', error.message);
-                        }
-                    }
+                  this.response = await (await fetch('https://system-service-rubenpinxten.cloud.okteto.net/quotes/all')).json();
+                  let output = document.getElementById('output');
+                  output.innerHTML = '';
+                  for (let i = 0; i < this.responsedata.length; i++) {
+                    let li = document.createElement('li');
+                    li.innerHTML = this.responsedata[i].content;
+                    output.appendChild(li);
+                  }
                 }" x-cloak>
                     <button class="btn btn-primary" x-on:click="getData" x-show="responsedata === null">Get quotes</button>
-                    <ul class="api-output" x-if="Array.isArray(responsedata)" x-show="Array.isArray(responsedata)">
-                        <li x-for="(quote, index) in responsedata" :key="index" x-if="quote.text" x-text="quote.text"></li>
-                    </ul>
-                    <p x-if="!Array.isArray(responsedata)">No quotes available</p>
+                    <ul id="output"></ul>
                 </div>
                 
                 

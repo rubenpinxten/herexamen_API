@@ -8,7 +8,7 @@ from sqlalchemy.orm import Session
 import crud
 
 # OAuth2 variables
-SECRET_KEY = "0dd9755ad5b8082db4e5378b1610c29912d63ef14d630a8beecd36d6fbd2521b"
+SECRET_KEY = "30779db4256174fdb4ef35602822362f665a7b62ff9c8a3fd6df3a4c3976dfaa"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
