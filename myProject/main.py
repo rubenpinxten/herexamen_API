@@ -3,7 +3,7 @@ from fastapi.security import HTTPBasic, HTTPBasicCredentials, OAuth2PasswordBear
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware  # Import the CORSMiddleware
 from passlib.context import CryptContext
-from auth import get_password_hash
+
 
 import os
 import secrets
@@ -47,37 +47,22 @@ app.add_middleware(
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
-    user = authenticate_user(credentials.username, credentials.password, db)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect email or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return credentials.username
-
-@app.post("/register")
-def register_user(username: str, password: str, db: Session = Depends(get_db)):
-    hashed_password = get_password_hash(password)
-    user = crud.create_user(db, username, hashed_password)
-    return user
-
 @app.post("/token")
-def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = authenticate_user(form_data.username, form_data.password, db)
-    if not user:
+def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
+    #Try to authenticate the user
+    admin = auth.authenticate_admin(db, form_data.username, form_data.password)
+    if not admin:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
+            status_code=401,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
-    access_token = create_access_token(data={"sub": user.username})
+    # Add the JWT case sub with the subject(user)
+    access_token = auth.create_access_token(
+        data={"sub": admin.username}
+    )
+    #Return the JWT as a bearer token to be placed in the headers
     return {"access_token": access_token, "token_type": "bearer"}
-
-@app.get("/users/me")
-def read_current_user(username: str = Depends(get_current_username)):
-    return {"username": username}
 
 
 @app.post("/quotes/", response_model=schemas.Quote)
@@ -175,3 +160,30 @@ def get_all_titles(db: Session = Depends(get_db)):
 @app.get("/years/get/", response_model=list[schemas.Year])
 def get_all_years(db: Session = Depends(get_db)):
     return crud.get_all_years(db=db)
+
+# POST admin
+@app.post("/admin", response_model=schemas.Admin)
+async def create_admin(admin: schemas.AdminCreate, db: Session = Depends(get_db)):
+    new_admin = crud.create_admin(db=db, admin=admin)
+    return new_admin
+
+# GET current admin
+@app.get("/admin", response_model=schemas.Admin)
+def read_current_admin(db: Session = Depends(get_db), token: str = Depends(auth.oauth2_scheme)):
+    current_admin = auth.get_current_admin(db, token)
+    return current_admin
+
+# GET admin by username
+@app.get("/admin/{username}", response_model=schemas.Admin)
+def read_admin(username: str, db: Session = Depends(get_db)):
+    admin = crud.get_admin_username(db, username)
+    if admin is None:
+        raise HTTPException(status_code=404, detail="Admin not found")
+    return admin
+
+# DELETE admin
+@app.delete("/admin/{username}", response_model=str)
+async def delete_admin(username: str, db: Session = Depends(get_db)):
+    admin_username = crud.get_admin_username(db, username)
+    deleted_admin = crud.delete_admin(db, admin_username)
+    return "Admin: " + str(deleted_admin.username) + " deleted"

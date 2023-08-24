@@ -26,3 +26,11 @@ class Year(Base):
     text = Column(String)
 
     spoken = relationship("Quote", back_populates="periode")
+
+class Admin(Base):
+    __tablename__ = "admins"
+
+    id = Column(Integer, primary_key=True, index=True)
+    username = Column(String, unique=True, index=True)
+    hashed_password = Column(String)
+

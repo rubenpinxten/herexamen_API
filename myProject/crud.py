@@ -103,3 +103,32 @@ def get_all_titles(db: Session):
 
 def get_all_years(db: Session):
     return db.query(Year).all()
+
+# create admin
+def create_admin(db: Session, admin: schemas.AdminCreate):
+    hashed_password = auth.get_password_hash(admin.password)
+    db_admin = models.Admin(username=admin.username, hashed_password=hashed_password)
+    adminexists = db.query(models.Admin).filter(models.Admin.username == admin.username).first()
+    if adminexists:
+        adminerror = {
+            "username": "error",
+            "id": 0,
+        }
+        return adminerror
+    else:
+        db.add(db_admin)
+        db.commit()
+        db.refresh(db_admin)
+        return db_admin
+
+# get admin by username
+def get_admin_username(db: Session, username: str):
+    admin = db.query(models.Admin).filter(models.Admin.username == username).first()
+    return admin
+
+# delete admin by username
+def delete_admin(db: Session, admin: schemas.Admin):
+    admin = db.query(models.Admin).filter(models.Admin.username == admin.username).first()
+    db.delete(admin)
+    db.commit()
+    return admin

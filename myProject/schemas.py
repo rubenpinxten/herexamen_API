@@ -45,3 +45,15 @@ class QuoteCreateData(BaseModel):
     quote: QuoteCreate
     title: TitleCreate
     year: YearCreate
+
+class AdminBase(BaseModel):
+    username: str
+
+class AdminCreate(AdminBase):
+    password: str
+
+class Admin(AdminBase):
+    id: int
+
+    class Config:
+        orm_mode = True
