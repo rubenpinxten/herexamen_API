@@ -2,6 +2,8 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials, OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from fastapi.middleware.cors import CORSMiddleware  # Import the CORSMiddleware
+from passlib.context import CryptContext
+from auth import get_password_hash
 
 import os
 import secrets
@@ -46,17 +48,8 @@ app.add_middleware(
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
-    current_username_bytes = credentials.username.encode("utf8")
-    correct_username_bytes = b"Ruben"
-    is_correct_username = secrets.compare_digest(
-        current_username_bytes, correct_username_bytes
-    )
-    current_password_bytes = credentials.password.encode("utf8")
-    correct_password_bytes = b"Ruben"
-    is_correct_password = secrets.compare_digest(
-        current_password_bytes, correct_password_bytes
-    )
-    if not (is_correct_username and is_correct_password):
+    user = authenticate_user(credentials.username, credentials.password, db)
+    if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password",
@@ -64,6 +57,23 @@ def get_current_username(credentials: HTTPBasicCredentials = Depends(security)):
         )
     return credentials.username
 
+@app.post("/register")
+def register_user(username: str, password: str, db: Session = Depends(get_db)):
+    hashed_password = get_password_hash(password)
+    user = crud.create_user(db, username, hashed_password)
+    return user
+
+@app.post("/token")
+def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = authenticate_user(form_data.username, form_data.password, db)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token = create_access_token(data={"sub": user.username})
+    return {"access_token": access_token, "token_type": "bearer"}
 
 @app.get("/users/me")
 def read_current_user(username: str = Depends(get_current_username)):
