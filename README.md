@@ -1,10 +1,23 @@
+<div align="center" id="readme-top">
+
 <h1 align="center">Herexamenproject voor API Development</h1>
+<p align="center">
+    Gemaakt door Ruben Pinxten
+    <br />
+    <a href="https://github.com/rubenpinxten/herexamen_API/"><strong>Bekijk de bestanden »</strong></a>
+    <br />
+    <br />
+    <a href="https://herexamenopdrachapiruben.netlify.app/">Front-end website</a>
+    ·
+    <a href="https://system-service-rubenpinxten.cloud.okteto.net/docs">API docs website</a>
+  </p>
+</div>
 <!-- Inhoudstafel-->
 <details>
   <summary>Inhoudstafel</summary>
     <ol>
       <li>
-        <a href="">Gebouws met</a>
+        <a href="">Gebouwd met</a>
       </li>
       <li>
         <a href="">Over dit project</a>
@@ -14,14 +27,14 @@
             <ul>
               <li><a href="">Login</a></li>
               <li><a href="">Get the first quote.</a></li>
-              <li><a href="">Gat all the quotes.</a></li>
+              <li><a href="">Get all the quotes.</a></li>
               <li><a href="">Add a quote</a></li>
               <li><a href="">Get a random quote</a></li>
               <li><a href="">Get a title</a></li>
               <li><a href="">Get a Year</a></li>
               <li><a href="">Get all the years</a></li>
               <li><a href="">Get all the titles</a></li>
-              <li><a href="">Get all the current admin</a></li>
+              <li><a href="">Get the current admin</a></li>
             </ul>
           </li>
           <li>
@@ -94,27 +107,23 @@ Ik voor dit project gekozen om bekende film quotes weer te geven aan de gebruike
 
 #### Login front-end
 
-#### Post quote front-end
+#### Get the first quote
 
-#### Get quote by id front-end
+#### Get all the quotes
 
-#### Get random quote front-end
+#### Add a quote
 
-#### Get title by id front-end
+#### Get a random quote
 
-#### Get year by id front-end
+#### Get a title
 
-#### Get all quotes front-end
+#### get a year
 
-#### Get all titles front-end
+#### Get all the years
 
-#### Get all Years front-end
+#### Get all the titles
 
-#### Get current admin front-end
-
-#### Post admin front-end
-
-#### Get admin by username front-end
+#### Get the current admin
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
