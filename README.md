@@ -123,7 +123,7 @@ Vorvolgens moet je gewoon je username en password ingeven en ben je ingelogd.
 
 ![authorize-backend]
 
-En dit is het resultaat als je op inloggen klikt.
+En dit is het resultaat als je op authorize klikt.
 
 ![AuthorizeResultBackEnd]
 
@@ -132,11 +132,11 @@ En dit is het resultaat als je op inloggen klikt.
 #### Post quote back-end
 Om een Quote toe te voegen aan de database moet je gewoon zoals in de afbeelding hieronder de quote, de title van de film en het jaartal van de film toevegen.
 
-[PostQuoteBackEnd1]
+![PostQuoteBackEnd1]
 
 Als je dit hebt gedaan en dan nog op de knop Execute hebt gedrukt ziet je resultaat er zo uit.
 
-[PostQuoteBackEnd2]
+![PostQuoteBackEnd2]
 
 #### Get quote by id back-end
 
