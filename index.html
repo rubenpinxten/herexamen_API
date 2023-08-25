@@ -59,7 +59,7 @@
         <div class="col-md-6 col-sm-12">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Get the first Quote.</h5>
+            <h5 class="card-title">Get the first quote.</h5>
             <div class="card-text">
                 <div x-data="{
                     responsedata: null,
@@ -113,7 +113,7 @@
 <div class="col-md-12 col-sm-12">
     <div class="card">
         <div class="card-body">
-            <h5 class="card-title">Add a Quote.</h5>
+            <h5 class="card-title">Add a quote.</h5>
             <div class="card-text">
       <div x-data="{ 
         quoteText: '', 
@@ -175,9 +175,12 @@
       </div>
       
     </div> </div> </div></div>
+    <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
       <div class="card">
           <div class="card-body">
-              <h5 class="card-title">Get a random Quote.</h5>
+              <h5 class="card-title">Get a random quote.</h5>
               <div class="card-text">
                   <div x-data="{
                       responsedata: null,
@@ -198,9 +201,9 @@
                   </div>
               </div>
           </div>
-      </div>
+      </div></div>
 
-      
+      <div class="col-md-6 col-sm-12">
       <div class="card">
         <div class="card-body">
             <h5 class="card-title">Get a title</h5>
@@ -225,7 +228,11 @@
             </div>
         </div>
     </div>
-
+  </div>
+</div>
+  </div></div><div class="container">
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
     <div class="card">
       <div class="card-body">
           <h5 class="card-title">Get a year</h5>
@@ -249,8 +256,8 @@
               </div>
           </div>
       </div>
-  </div>
-
+  </div></div>
+  <div class="col-md-6 col-sm-12">
   <div class="card">
     <div class="card-body">
         <h5 class="card-title">Get all the years.</h5>
@@ -270,14 +277,15 @@
                 <button class="btn btn-primary" x-on:click="getData" x-show="responsedata === null">Get years</button>
                 <ul id="output"></ul>
             </div>
-            
-            
+          </div>
+        </div>
             
         </div>
     </div>
-</div>
-
-
+</div></div></div>
+<div class="container">
+<div class="row">
+  <div class="col-md-6 col-sm-12">
 <div class="card">
   <div class="card-body">
       <h5 class="card-title">Get all the titles.</h5>
@@ -303,7 +311,8 @@
       </div>
   </div>
 </div>
-
+</div>
+<div class="col-md-6 col-sm-12">
 <div class="card">
   <div class="card-body">
       <h5 class="card-title">Get the current admin</h5>
@@ -327,7 +336,7 @@
           </div>
       </div>
   </div>
-</div>
+</div></div></div></div>
 
 
       

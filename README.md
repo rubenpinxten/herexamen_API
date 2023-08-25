@@ -12,16 +12,16 @@
           <li>
             <a href="">Front-end API</a>
             <ul>
-              <li><a href=""></a></li>
-                <li><a href=""></a></li>
-                  <li><a href=""></a></li>
-                    <li><a href=""></a></li>
-                      <li><a href=""></a></li>
-                        <li><a href=""></a></li>
-                          <li><a href=""></a></li>
-                            <li><a href=""></a></li>
-                              <li><a href=""></a></li>
-                                <li><a href=""></a></li>
+              <li><a href="">Login</a></li>
+              <li><a href="">Get the first quote.</a></li>
+              <li><a href="">Gat all the quotes.</a></li>
+              <li><a href="">Add a quote</a></li>
+              <li><a href="">Get a random quote</a></li>
+              <li><a href="">Get a title</a></li>
+              <li><a href="">Get a Year</a></li>
+              <li><a href="">Get all the years</a></li>
+              <li><a href="">Get all the titles</a></li>
+              <li><a href="">Get all the current admin</a></li>
             </ul>
           </li>
           <li>
@@ -92,7 +92,7 @@ Ik voor dit project gekozen om bekende film quotes weer te geven aan de gebruike
 <!-- Front-end -->
 ### Front-end API
 
-#### Post token front-end
+#### Login front-end
 
 #### Post quote front-end
 
@@ -123,7 +123,7 @@ Ik voor dit project gekozen om bekende film quotes weer te geven aan de gebruike
 
 Hier kan je al de verschillende POST, GET, PUT en Delete endpoints zien dat ik heb.
 
-[BackendDocks]
+![BackendDocks]
 
 #### Authorize back-end
 Sommige zaken in deze API kunnen enkel gedaan worden als je Admin bent, zoals het verwijderen van data uit de database. In de Back-end kan je inloggen door op de knop te drukken zoals hieronder.

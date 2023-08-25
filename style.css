@@ -8,6 +8,10 @@ html {
     font-size: 16px;
 }
 
+h1{
+    text-align: center;
+}
+
 body {
     background-color:black;
 background-image:
@@ -27,5 +31,9 @@ h1 {
 .card {
     text-align: center;
     border: 5px solid black;
-    border-radius: 35%;
+    border-radius:0%;
+}
+
+#loginform {
+    color: #fff;
 }
