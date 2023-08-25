@@ -121,6 +121,10 @@ Ik voor dit project gekozen om bekende film quotes weer te geven aan de gebruike
 <!-- Back-end -->
 ### Back-end API
 
+Hier kan je al de verschillende POST, GET, PUT en Delete endpoints zien dat ik heb.
+
+[BackendDocks]
+
 #### Authorize back-end
 Sommige zaken in deze API kunnen enkel gedaan worden als je Admin bent, zoals het verwijderen van data uit de database. In de Back-end kan je inloggen door op de knop te drukken zoals hieronder.
 
@@ -136,8 +140,12 @@ En dit is het resultaat als je op authorize klikt.
 
 #### Post token back-end
 
+Deze POST endpoint geeft een oAuth2 token terug van de API, Dize wordt op de achtergrond gebruikt om aan te geven of een request van een Admin is gekomen of niet.
+
+![PostTokenBackEnd]
+
 #### Post quote back-end
-Om een Quote toe te voegen aan de database moet je gewoon zoals in de afbeelding hieronder de quote, de title van de film en het jaartal van de film toevegen.
+Om een Quote toe te voegen aan de database moet je gewoon zoals in de afbeelding hieronder de quote, de titel van de film en het jaartal van de film toevegen. Het mooien hier van is dat je niet 3 vershillende POST endpoints moet hebben gezien ook de IDs van zowel de titel als het jaartal automatisch worden toegevoegd.
 
 ![PostQuoteBackEnd1]
 
@@ -147,33 +155,67 @@ Als je dit hebt gedaan en dan nog op de knop Execute hebt gedrukt ziet je result
 
 #### Get quote by id back-end
 
+Deze GET endpoint geeft aan de hand van een ID de bijhorende quote weer, maar ook de IDs van het jaartal en de titel worden weergegeven.
+
+![GetQuoteByIdBAckEnd]
+
 #### Put quote by id back-end
+
+Met deze PUT endpoint kan je een bepaalde quote aanpassen aan de hand van de bijhorende ID.
+
+![PutQuoteByIdBackEnd]
 
 #### Delete quote by id back-end
 
+Met dit DELETE endpoint kan er een quote worden verwijderd aan de hand van de bijhorende ID.
+
+![DeleteQuoteByIdBackEnd]
+
 #### Get random quote back-end
+
+Deze GET endpoint geeft een random quote terug uit de databse. Maar dit werkt niet.
+
+![GetQuoteRandomBackEnd]
 
 #### Get title by id back-end
 
+Deze GET endpoint geeft aan de hand van een ID de bijhorende Title.
+
+![GetTitleByIdBackEnd]
+
 #### Delete title by id back-end
+
+Deze DELETE endpoint verwijderd een title uit de database aan de hand van de bijhorende ID.
+
+![DeleteTitleByBackEnd]
 
 #### Get year by id back-end
 
-![DeleteTitleByIdPostman]
+Deze GET endpoint geeft aan de hand van een ID het bijhorende jaar.
+
+![GetYearsByIdBackEnd]
 
 #### Delete year by id back-end
+
+Deze DELETE endpoint verwijderd een jaar uit de database aan de hand van de bijhorende ID.
 
 ![DeleteYearsByIdBackEnd]
 
 #### Get all quotes back-end
 
+Deze GET endpoint geeft alle quotes weer uit de database. Dit heeft in het verleden al gewerkt, maar op moment van indienen werkt het niet.
+
 ![GetAllQuotesBackEnd]
 
 #### Get all titles back-end
 
+Deze GET endpoint geeft alle titels weer uit de database. Dit heeft in het verleden al gewerkt, maar op moment van indienen werkt het niet.
+
 ![GetAllTitlesBackEnd]
 
 #### Get all Years back-end
+
+Deze GET endpoint geeft alle jaren weer uit de database. Dit heeft in het verleden al gewerkt, maar op moment van indienen werkt het niet.
 
 ![GetAllYearsBackEnd]
 
@@ -194,6 +236,8 @@ Om de id van een Admin op te vragen moet je gewoon zoals hier onder gewoon de us
 ![GetAdminUsernameBackend]
 
 #### Delete admin by username back-end
+
+Deze DELETE endpoint verwijderd een admin acount aan de hand van de gebruikersnaam.
 
 ![DeleteAdminUsernamBackEnd]
 
@@ -307,7 +351,15 @@ Bij deze afbeelding zou ik nog even bij willen vermeleden dat de array "quotes" 
 [GetAllTitlesBackEnd]: Pictures/GetAllTitlesBackEnd.png
 [GetAllYearsBackEnd]: Pictures/GetAllYearsBackEnd.png
 [DeleteAdminUsernamBackEnd]: Pictures/DeleteAdminBackEnd.png
-
+[BackendDocks]: Pictures/BackendDocks.png
+[GetQuoteByIdBAckEnd]: Pictures/GetQuoteByIDBackEnd.png
+[PutQuoteByIdBackEnd]: Pictures/PutQuoteByIDBackEnd.png
+[DeleteQuoteByIdBackEnd]: Pictures/DeleteQuoteByIDBackEnd.png
+[GetQuoteRandomBackEnd]: Pictures/GetQuoteRandomBackEnd.png
+[GetTitleByIdBackEnd]: Pictures/GetTitleByIdBackEnd.png
+[DeleteTitleByBackEnd]: Pictures/DeleteTitleByIdBackEnd.png
+[GetYearsByIdBackEnd]: Pictures/GetYearsByIdBackEnd.png
+[PostTokenBackEnd]: Pictures/PostTokenBackEnd.png
 
 
 <!-- Postman Requests -->
