@@ -37,7 +37,7 @@ def get_quote(db: Session, quote_id: int):
 
 #get random quote between the first and the 10th
 def get_quote_random(db:Session):
-    id = random.randint(0,10)
+    id = 6
     return db.query(Quote).filter(Quote.id == 6)
 
 #update quote by id
