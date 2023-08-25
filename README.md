@@ -100,6 +100,14 @@ Ik voor dit project gekozen om bekende film quotes weer te geven aan de gebruike
 ### Back-end API
 
 #### Authorize back-end
+Sommige zaken in deze API kunnen enkel gedaan worden als je Admin bent, zoals het verwijderen van data uit de database. In de Back-end kan je inloggen door op de knop te drukken zoals hieronder.
+
+![buttonAuthorizeBackEnd]
+
+Vorvolgens moet je gewoon je username en password ingeven en ben je ingelogd.
+
+![authorize-backend]
+
 
 #### Post token back-end
 
@@ -155,4 +163,5 @@ Ik voor dit project gekozen om bekende film quotes weer te geven aan de gebruike
 [Bootstrap-url]: https://getbootstrap.com/
 
 [backend-url]: https://system-service-rubenpinxten.cloud.okteto.net/docs
-[authorize-backend]: Pictures/
+[authorize-backend]: Pictures/Authorize_back_end.png
+[buttonAuthorizeBackEnd]: Pictures/ButtonAuthorizeBackEnd.png
