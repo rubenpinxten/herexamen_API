@@ -47,6 +47,21 @@
               <li><a href="">Delete admin by username</a></li>
             </ul>
           </li>
+          <li>
+            <a href="">Postman requests</a>
+            <ul>
+              <li><a href=""></a></li>
+                <li><a href=""></a></li>
+                  <li><a href=""></a></li>
+                    <li><a href=""></a></li>
+                      <li><a href=""></a></li>
+                        <li><a href=""></a></li>
+                          <li><a href=""></a></li>
+                            <li><a href=""></a></li>
+                              <li><a href=""></a></li>
+                                <li><a href=""></a></li>
+            </ul>
+          </li>
       </li>
         </ul>
       </li>
@@ -108,10 +123,20 @@ Vorvolgens moet je gewoon je username en password ingeven en ben je ingelogd.
 
 ![authorize-backend]
 
+En dit is het resultaat als je op inloggen klikt.
+
+![AuthorizeResultBackEnd]
 
 #### Post token back-end
 
 #### Post quote back-end
+Om een Quote toe te voegen aan de database moet je gewoon zoals in de afbeelding hieronder de quote, de title van de film en het jaartal van de film toevegen.
+
+[PostQuoteBackEnd1]
+
+Als je dit hebt gedaan en dan nog op de knop Execute hebt gedrukt ziet je resultaat er zo uit.
+
+[PostQuoteBackEnd2]
 
 #### Get quote by id back-end
 
@@ -136,16 +161,27 @@ Vorvolgens moet je gewoon je username en password ingeven en ben je ingelogd.
 #### Get all Years back-end
 
 #### Get current admin back-end
+Om te zien welke admin op dit moment is ingelogd moet je gewoon op execute drukken en krijg je als resultaat te zien welke admin op dit moment is ingelogd.
+
+![GetAdminCurrentBackEnd]
 
 #### Post admin back-end
+Om een admin aan te maken moet je gewoon een username en password invullen en op execute drukken.
+
+![CreateAdminBackEnd1]
+![CreateAdminBackEnd2]
 
 #### Get admin by username back-end
+Om de id van een Admin op te vragen moet je gewoon zoals hier onder gewoon de username ingeven en krijg je als resultaat de id terug.
+
+![GetAdminUsernameBackend]
 
 #### Delete admin by username back-end
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ### Postman requests
+Hier ga ik aan de hand van Postman requests toenen hoe de vershillende endpoints van de API werken.
 
 
 
@@ -162,6 +198,24 @@ Vorvolgens moet je gewoon je username en password ingeven en ben je ingelogd.
 [Bootstrap.css]: https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white
 [Bootstrap-url]: https://getbootstrap.com/
 
+<!-- -->
+
 [backend-url]: https://system-service-rubenpinxten.cloud.okteto.net/docs
+<!-- Authorize backend -->
 [authorize-backend]: Pictures/Authorize_back_end.png
 [buttonAuthorizeBackEnd]: Pictures/ButtonAuthorizeBackEnd.png
+[AuthorizeResultBackEnd]: Pictures/AuthorizeResultBackEnd.png
+<!-- Post Admin Backend -->
+[CreateAdminBackEnd1]: Pictures/POST_Admin_Back_end_Deel_1.png
+[CreateAdminBackEnd2]: Pictures/POST_Admin_Back_end_Deel_2.png
+<!-- Get Admin Username Backend -->
+[GetAdminUsernameBackend]: Pictures/GetAdminUsernameBackEnd.png
+<!-- Get Current Admin Back-end -->
+[GetAdminCurrentBackEnd]: Pictures/GetCurrentAdminBackEnd.png
+<!-- Post quote Back-end -->
+[PostQuoteBackEnd1]: Pictures/POST_Admin_Back_end_Deel_1.png
+[PostQuoteBackEnd2]: Pictures/POST_Admin_Back_end_Deel_2.png
+
+
+
+
