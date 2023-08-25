@@ -389,3 +389,16 @@ Bij deze afbeelding zou ik nog even bij willen vermeleden dat de array "quotes" 
 [PostAdminPostman]: Pictures/PostAdminPostman.png
 [GetAdminUsernamePostman]: Pictures/GetAdminUsernamePostman.png
 [DeleteAdminUsernamPostman]: Pictures/DeleteAdminPostman.png
+
+<!-- Front End -->
+
+[LoginFrontEnd]: Pictures/LoginFrontEnd.png
+[GetTheFirstQuoteFrontEnd]: Pictures/GetTheFirstQuoteFrontEnd.png
+[GetAllTheQuotes]: Pictures/GetAllTheQuotesFrontEnd.png
+[AddAQuoteFrontEnd]: Pictures/AddAQuoteFrontEnd.png
+[GetARandomQuoteFrontEnd]: Pictures/GetARandomQuoteFrontENd.png
+[GetATitleFrontEnd]: Pictures/GetAtitleFrontEnd.png
+[GetAYearFrontEnd]: Pictures/GetAYearFrontEnd.png
+[GetAllTheYearsFrontENd]: Pictures/GetAllTheYearsFrontEnd.pngµ
+[GetAllTheTitlesFrontEnd]: Pictures/GetAllTheTitlesFrontEnd.png
+[GetTheCurrentAdminFrontEnd]: Pictures/GetTheCurrentAdminFrontEnd.png
