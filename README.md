@@ -35,6 +35,8 @@
               <li><a href="">Get all the years</a></li>
               <li><a href="">Get all the titles</a></li>
               <li><a href="">Get the current admin</a></li>
+              <li><a href="">Create a admin</a></li>
+              <li><a href="">Get admin by username</a></li>
             </ul>
           </li>
           <li>
@@ -105,25 +107,77 @@ Ik voor dit project gekozen om bekende film quotes weer te geven aan de gebruike
 <!-- Front-end -->
 ### Front-end API
 
+![FrontEnd]
+
+Zoals je kan zien staan op de website de meeste Get and Post endpoints van de API ter beschikking.
+
 #### Login front-end
+
+Links vanboven op de pagina kan de admin inloggen met zijn username en password. 
+
+![LoginFrontEnd]
 
 #### Get the first quote
 
+Als je op deze knop druk krijg je de eerste quote die in de database zit.
+
+![GetTheFirstQuoteFrontEnd]
+
 #### Get all the quotes
+
+Als je op deze knop druk krijg je alle quotes die in de database steken te zien.
+
+![GetAllTheQuotes]
 
 #### Add a quote
 
+Hier kan je door in de juiste vakken de quote, de tittel en het jaartal in te vullen een quote toevoegen aan de database.
+
+![AddAQuoteFrontEnd]
+
 #### Get a random quote
+
+Als je op deze knop druk krijg je een random quote uit de database te zien.
+
+![GetARandomQuoteFrontEnd]
 
 #### Get a title
 
+Als je op deze knop druk krijg je een titel uit de database te zien. Op de afbeelding hieronder staan gewoon wat letters die als test in de database waren toegevoegd als titel.
+
+![GetATitleFrontEnd]
+
 #### get a year
+
+Als je op deze knop druk krijg je een jaartal te zien. 
+
+![GetAYearFrontEnd]
 
 #### Get all the years
 
+Als je op deze knop druk krijg je alle jaren die in de database steken te zien.
+
+![GetAllTheYearsFrontENd]
+
 #### Get all the titles
 
+Als je op deze knop druk krijg je alle tittels die in de database steken te zien.
+
+![GetAllTheTitlesFrontEnd]
+
 #### Get the current admin
+
+Als je op deze knop druk krijg je de huidig ingelogde admin te zien
+
+![GetTheCurrentAdminFrontEnd]
+
+#### Create a admin
+
+Dit is een POST endpoint waar ik voor heb gekozen om deze niet op de front-end te plaatsen, omdat ik vind dat die daar niet thuis hoort.
+
+#### Get admin by username
+
+Dit is een GET endpoint waar ik voor heb gekozen om deze niet op de front-end te plaatsen, omdat ik vind dat deze daar niet thuis hoort.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -325,6 +379,18 @@ Bij deze afbeelding zou ik nog even bij willen vermeleden dat de array "quotes" 
 
 ![DeleteAdminUsernamPostman]
 
+
+## Contactgegevens
+
+Ruben Pinxten - r0887893@student.thomasmore.be
+
+Front-end link: [https://herexamenopdrachapiruben.netlify.app/](https://herexamenopdrachapiruben.netlify.app/)
+
+Hosted API link: [https://system-service-rubenpinxten.cloud.okteto.net/docs](https://system-service-rubenpinxten.cloud.okteto.net/docs)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+
 [FastAPI.py]: https://img.shields.io/badge/-%F0%9F%97%B2%20FastAPI-019486?style=for-the-badge
 [FastAPI-url]: https://fastapi.tiangolo.com/
 [Python.py]: https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white
@@ -391,7 +457,7 @@ Bij deze afbeelding zou ik nog even bij willen vermeleden dat de array "quotes" 
 [DeleteAdminUsernamPostman]: Pictures/DeleteAdminPostman.png
 
 <!-- Front End -->
-
+[FrontEnd]: Pictures/FrontEnd.png
 [LoginFrontEnd]: Pictures/LoginFrontEnd.png
 [GetTheFirstQuoteFrontEnd]: Pictures/GetTheFirstQuoteFrontEnd.png
 [GetAllTheQuotes]: Pictures/GetAllTheQuotesFrontEnd.png
