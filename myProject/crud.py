@@ -31,12 +31,15 @@ def create_quote(db: Session, quote: QuoteCreate, title_text: str, year_text: st
 
     return db_quote
 
+#get quote by id
 def get_quote(db: Session, quote_id: int):
     return db.query(Quote).filter(Quote.id == quote_id).first()
 
-def get_quote_random(db:Session, quote_id:int):
-    return db.query(Quote).filter(Quote.id == random.randint(1, 10))
+#get random quote between the first and the 10th
+def get_quote_random(db:Session):
+    return db.query(Quote).filter(Quote.id == random.randint(0, 10))
 
+#update quote by id
 def update_quote(db: Session, quote_id: int, quote: QuoteBase):
     db_quote = db.query(Quote).filter(Quote.id == quote_id).first()
     db_quote.text = quote.text
@@ -44,12 +47,14 @@ def update_quote(db: Session, quote_id: int, quote: QuoteBase):
     db.refresh(db_quote)
     return db_quote
 
+#delete quote by id
 def delete_quote(db: Session, quote_id: int):
     db_quote = db.query(Quote).filter(Quote.id == quote_id).first()
     db.delete(db_quote)
     db.commit()
     return {"message": "Quote deleted"}
 
+#
 def get_title(db: Session, title_id: int):
     return db.query(Title).filter(Title.id == title_id).first()
 
