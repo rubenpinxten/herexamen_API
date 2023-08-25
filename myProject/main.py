@@ -144,8 +144,8 @@ def delete_year(year_id: int, db: Session = Depends(get_db), token: str = Depend
 
 #get all quotes
 @app.get("/quotes/all", response_model=list[schemas.Quote])
-def get_all_quotes(db: Session = Depends(get_db)):
-    return crud.get_all_quotes(db=db)
+def get_all_quotes(skip: int =0, limit: int = 50, db: Session = Depends(get_db)):
+    return crud.get_all_quotes(db=db,skip=skip,limit=limit)
 
 #get all titles
 @app.get("/titles/all", response_model=list[schemas.Title])

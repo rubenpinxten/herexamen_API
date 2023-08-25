@@ -37,7 +37,8 @@ def get_quote(db: Session, quote_id: int):
 
 #get random quote between the first and the 10th
 def get_quote_random(db:Session):
-    return db.query(Quote).filter(Quote.id == random.randint(0, 10))
+    id = random.randint(0,10)
+    return db.query(Quote).filter(Quote.id == 6)
 
 #update quote by id
 def update_quote(db: Session, quote_id: int, quote: QuoteBase):
@@ -73,8 +74,9 @@ def delete_year(db: Session, year_id: int):
     db.commit()
     return {"message": "Year deleted"}
 
-def get_all_quotes(db: Session):
-    return db.query(Quote).all()
+def get_all_quotes(db: Session,skip:int=0,limit:int=50):
+    all_quotes = db.query(models.Quote).offset(skip).limit(limit).all()
+    return all_quotes
 
 def get_all_titles(db: Session):
     return db.query(Title).all()
